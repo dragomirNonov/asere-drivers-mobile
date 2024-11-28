@@ -11,6 +11,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles/LoginPageStyles";
 import truckImage from "../assets/truck3.png";
+import userService from "../services/userService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginPage = () => {
   const [phone, setPhone] = useState("");
@@ -18,8 +20,25 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation();
 
-  const handleSubmit = () => {
-    Alert.alert("Login Pressed", "Login functionality coming soon!");
+  const handleSubmit = async () => {
+    if (!phone || !password) {
+      setErrorMessage("Please enter both phone and password");
+      return;
+    }
+
+    try {
+      const response = await userService.login({ phone, password });
+
+      if (response.status === 200) {
+        await AsyncStorage.setItem("token", response.data.token);
+        Alert.alert("Success", "Logged in successfully!");
+        // Add navigation to appropriate screen based on role if needed
+      }
+    } catch (err) {
+      const errorMsg = err.response?.data?.message || "Login failed";
+      setErrorMessage(errorMsg);
+      Alert.alert("Login Error", errorMsg);
+    }
   };
 
   const handleRegister = () => {
