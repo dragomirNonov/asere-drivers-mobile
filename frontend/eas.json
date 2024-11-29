@@ -1,0 +1,17 @@
+{
+  "cli": {
+    "version": ">= 13.4.2",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk",
+        "image": "latest"
+      },
+      "env": {
+        "GRADLE_OPTS": "-Dorg.gradle.project.org.gradle.java.home=/usr/lib/jvm/java-11-openjdk-amd64"
+      }
+    }
+  }
+}
