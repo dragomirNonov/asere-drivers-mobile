@@ -31,8 +31,27 @@ const LoginPage = () => {
 
       if (response.status === 200) {
         await AsyncStorage.setItem("token", response.data.token);
-        Alert.alert("Success", "Logged in successfully!");
-        // Add navigation to appropriate screen based on role if needed
+        // Alert.alert("Success", "Logged in successfully!");
+
+        // Decode token to get role
+        const decodeToken = (token) => {
+          try {
+            return JSON.parse(atob(token.split(".")[1]));
+          } catch (error) {
+            console.error("Error decoding token:", error);
+            return null;
+          }
+        };
+
+        const decodedToken = decodeToken(response.data.token);
+        if (decodedToken?.role === "Manager") {
+          navigation.navigate("Admin", {
+            userRole: decodedToken.role,
+            userId: decodedToken.userId,
+          });
+        } else {
+          Alert.alert("Success", "Logged in successfully!");
+        }
       }
     } catch (err) {
       const errorMsg = err.response?.data?.message || "Login failed";
