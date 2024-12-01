@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   Pressable,
-  StyleSheet,
   TouchableOpacity,
   Modal,
 } from "react-native";
@@ -124,17 +123,6 @@ const EditStudentModal = (props) => {
                   onChangeText={(value) => handleChange("lastName", value)}
                 />
               </View>
-
-              {/* <View style={styles.formField}>
-                <Text style={styles.formLabel}>Transmission:</Text>
-                <TextInput
-                  style={styles.formInput}
-                  name="transmission"
-                  value={editedInfo.transmission}
-                  onChangeText={(value) => handleChange("transmission", value)}
-                />
-              </View> */}
-
               <View style={styles.formField}>
                 <Text style={styles.formLabel}>Transmission:</Text>
                 <View style={styles.pickerInput}>
@@ -165,25 +153,6 @@ const EditStudentModal = (props) => {
                 </View>
               </View>
 
-              {/* <View style={styles.formField}>
-                <Text style={styles.formLabel}>Class:</Text>
-                <TextInput
-                  style={styles.formInput}
-                  name="clas"
-                  value={editedInfo.clas}
-                  onChangeText={(value) => handleChange("clas", value)}
-                />
-              </View> */}
-
-              {/* <View style={styles.formField}>
-                <Text style={styles.formLabel}>Date of Birth:</Text>
-                <TextInput
-                  style={styles.formInput}
-                  name="DOB"
-                  value={editedInfo.DOB}
-                  onChangeText={(value) => handleChange("DOB", value)}
-                />
-              </View> */}
               <View style={styles.formField}>
                 <Text style={styles.formLabel}>Date of Birth:</Text>
                 <TouchableOpacity
@@ -236,18 +205,6 @@ const EditStudentModal = (props) => {
                 />
               </View>
 
-              {/* <View style={styles.formField}>
-                <Text style={styles.formLabel}>Permit Expiry Date:</Text>
-                <TextInput
-                  style={styles.formInput}
-                  name="permitExpiryDate"
-                  value={editedInfo.permitExpiryDate}
-                  onChangeText={(value) =>
-                    handleChange("permitExpiryDate", value)
-                  }
-                />
-              </View> */}
-
               <View style={styles.formField}>
                 <Text style={styles.formLabel}>Permit Expiry Date:</Text>
                 <TouchableOpacity
@@ -273,7 +230,11 @@ const EditStudentModal = (props) => {
                     mode="date"
                     display="default"
                     onChange={onPermitExpiryChange}
-                    maximumDate={new Date()}
+                    maximumDate={
+                      new Date(
+                        new Date().setFullYear(new Date().getFullYear() + 4)
+                      )
+                    }
                     minimumDate={new Date(1940, 0, 1)}
                   />
                 )}

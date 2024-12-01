@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import EditStudentModal from "./EditStudentModal";
+import StudentHoursModal from "./StudentHoursModal";
 // import ScheduleStudent from "./ScheduleStudentModal";
 // import StudentHoursModal from "./StudentHoursModal";
 // import { formatPhoneNumber } from "../../../utils/utils";
 import { Ionicons } from "@expo/vector-icons";
 import { formatPhoneNumber } from "../../utils/utils";
 
-const Student = ({ student, onSuccess, refresh }) => {
-  const [showStudentHours, setShowStudentHours] = useState(false);
+const Student = ({ student, refresh }) => {
   const [accordionOpen, setAccordionOpen] = useState(false);
 
   const getPermitExpiryColor = () => {
@@ -63,27 +63,16 @@ const Student = ({ student, onSuccess, refresh }) => {
             Permit Expiry Date:{" "}
             <Text style={styles.infoValue}>{student.permitExpiryDate}</Text>
           </Text>
-
-          <View style={styles.buttonContainer}>
-            {/* <ScheduleStudent student={student} onSuccess={onSuccess} /> */}
+          {/* <View style={styles.buttonContainer}>
             <EditStudentModal info={student} refresh={refresh} />
-            {/* <TouchableOpacity
-              style={styles.hoursButton}
-              onPress={() => setShowStudentHours(true)}
-            >
-              <Text style={styles.buttonText}>Hours</Text>
-            </TouchableOpacity> */}
-          </View>
-          {/* 
-          {showStudentHours && (
+          </View> */}
+          <View style={styles.buttonContainer}>
+            <EditStudentModal info={student} refresh={refresh} />
             <StudentHoursModal
-              info={student}
-              refresh={refresh}
-              show={showStudentHours}
-              studentHeading={`${student.firstName} ${student.lastName} | Class ${student.clas}`}
-              onVisibilityChange={setShowStudentHours}
+              studentId={student._id}
+              studentName={`${student.firstName} ${student.lastName}`}
             />
-          )} */}
+          </View>
         </View>
       )}
     </View>
